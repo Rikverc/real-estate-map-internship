@@ -1,9 +1,9 @@
 # real-estate-map-internship
 
-A production-grade Android application built as a **proof of concept** to explore scalable, map-based real-estate discovery.  
-The goal was to validate architecture, data flow, and performance strategies for handling **location-driven listings**, pagination, and image loading at scale.
+A production-grade Android application built as a **proof of concept** to explore different ways to show real estate postings to the user.
+The goal was to validate architecture, data flow, and performance strategies for handling **display of listings' location**, pagination, and image loading.
 
-The project focuses on **clean architecture**, **state-driven UI**, and **efficient data loading**, rather than UI polish.
+The project focuses on **clean architecture**, **state-driven UI**, and **efficient data loading**, the UI was nice and streamlined, but far from the focus.
 
 ---
 
@@ -37,7 +37,7 @@ The project focuses on **clean architecture**, **state-driven UI**, and **effici
 
 ## Project Overview
 
-The application allows users to explore real-estate listings **based on map visibility**, rather than traditional text search.
+The application allows users to explore real-estate listings **based on map visibility** (part of the map their device is displaying), rather than text search.
 
 Key idea:
 > **The visible map bounds drive which locations and listings are loaded.**
@@ -51,7 +51,7 @@ This enables:
 
 - **Location ≠ Listing**
   - *Location* represents a geographical area (e.g. municipality, city, region)
-  - *Listing* represents an individual real-estate ad within a location
+  - *Listing* represents an individual real-estate ad within a location (so multiple listings can be at one location).
 
 This distinction is central to the app’s data model and performance optimizations.
 
@@ -66,11 +66,11 @@ This distinction is central to the app’s data model and performance optimizati
 2. **Explore area**
    - User taps **“Explore area”**
    - The system reads current map bounds
-   - Only locations fully or partially visible are considered
+   - Only locations fully withing the bounds of the screen are considered, so if the entire region of Belgrade is visible the query only returns the "location" Belgrade (not anything within it like New Belgrade), otherwise if only New Belgrade and Banovo Brdo is in sight, those "locations are returned", and so on.
 
 3. **Markers appear**
    - Markers represent **locations**, not listings
-   - Marker density adapts to zoom level
+   - Marker density adapts to zoom level (as the result of the third line in "2. Explore area" section).
 
 4. **Marker selection**
    - Tapping a marker opens a bottom sheet
